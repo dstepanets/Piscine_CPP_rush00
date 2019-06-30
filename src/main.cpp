@@ -14,28 +14,37 @@
 
 #include <unistd.h>		//
 
-void		ball(Game *g)
+void		ball()
 {
 	static int x = 2, y = 38;
-//	int max_y = 0, max_x = 0;
 	static	int next_x = 0;
 	static int direction = 1;
 
 	mvprintw(y - 2, x, " @@ ");
-	// mvprintw(y - 2, x, " || ");
 	mvprintw(y - 1, x, " || ");
 	mvprintw(y, x, "O||O");
 
 	usleep(30000);
 
 	next_x = x + direction;
-	if (next_x >= (g->getMapw() - 4) || next_x < 1) 
+	if (next_x >= (MAPW - 2) || next_x < 1) 
 		direction*= -1;
 	else 
 		x += direction;
 
 }
 
+void		draw_palyer( Player *p)
+{
+	mvprintw(p->y, p->x, "<H>");
+}
+
+
+void		exit_game(Game *g, Player *p)
+{
+	delete p;
+	delete g;
+}
 
 int			main(void)
 {
@@ -43,7 +52,6 @@ int			main(void)
 
 	g->init_colors();
 	g->init_map();
-//	bzero(g->map, MAPH * MAPW);
 
 	unsigned int		count = 0;
 	while (1) 
@@ -53,20 +61,22 @@ int			main(void)
 		box(g->win, 0, 0);
 		wattroff(g->win, COLOR_PAIR(1));
 
-
-		int		key;
-		keypad(stdscr, 1);
-		nodelay(stdscr, TRUE);
+		// g->redrawMap();
+		g->p = new Player;
+		g->p->y = MAPH;
+		g->p->x = (MAPW / 2);
+		draw_palyer(g->p);
 //		if (count >= 13550 && count % 13550 == 0)
-			ball(g);
+//			ball();
 //		wprintw(g->win, "<O>");
+			nodelay(stdscr, TRUE);
+			keypad(stdscr, 1);
+			int 	key = getch();
+			g->key_events(key);
+			if (key == ESC)
+				exit_game(g, g->p);
 
 		wrefresh(g->win);
-		key = getch();
-
-		if (key == ESC)		//ESC
-			delete g;
-
 	}
 	return (0);
 }

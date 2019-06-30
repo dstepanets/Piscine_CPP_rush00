@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef Game_HPP
 # define Game_HPP
 
@@ -22,6 +21,7 @@
 # define WINW 100
 # define MAPH WINH - 2
 # define MAPW WINW - 2
+
 
 class					Game
 {
@@ -40,10 +40,12 @@ class					Game
 		
 		void			init_map(void);
 		void			init_colors(void);
-		void			key_events(void);
+		void			key_events(int key);
+		void			redrawMap(void);
 
 		WINDOW 			*win;
 		char			map[MAPH][MAPW];
+		Player			*p;
 
 	private:
 		int				_maph;

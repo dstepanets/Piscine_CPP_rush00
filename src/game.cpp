@@ -83,13 +83,27 @@ void		Game::init_map(void)
 	map[MAPH - 1][(MAPW - 1) / 2] = 'S';
 }
 
+void		Game::redrawMap(void)
+{
+	for (int y = 0; y < MAPH; y++)
+	{
+//		bzero(map[y], MAPW);
+		for (int x = 0; x < MAPW; x++)
+		{
+			if (map[y][x] == 'S')
+				mvprintw(y, x, "<H>");
+		}
+	}
+}
+
 void		Game::init_colors(void)
 {
 	start_color();							//for using colors 
 	init_pair(1, COLOR_BLACK, COLOR_BLUE); 	// create color 
 }
 
-void		Game::key_events(void)
+void		Game::key_events(int key)
 {
-
+	(void)key;
 }
+

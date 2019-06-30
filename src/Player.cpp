@@ -1,22 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.hpp                                           :+:      :+:    :+:   */
+/*   Player.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dstepane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 22:10:47 by dstepane          #+#    #+#             */
-/*   Updated: 2019/06/29 22:10:49 by dstepane         ###   ########.fr       */
+/*   Created: 2019/06/30 12:01:53 by dstepane          #+#    #+#             */
+/*   Updated: 2019/06/30 12:01:56 by dstepane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_HPP
-# define MAIN_HPP
-
-# include <ncurses.h>
-# include <iostream>
-
-# include "Game.hpp"
-# include "Player.hpp"
-
-#endif
+#include "../inc/Player.hpp"

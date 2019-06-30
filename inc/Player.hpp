@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.hpp                                           :+:      :+:    :+:   */
+/*   Player.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dstepane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/29 22:10:47 by dstepane          #+#    #+#             */
-/*   Updated: 2019/06/29 22:10:49 by dstepane         ###   ########.fr       */
+/*   Created: 2019/06/30 12:02:04 by dstepane          #+#    #+#             */
+/*   Updated: 2019/06/30 12:02:07 by dstepane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_HPP
-# define MAIN_HPP
+# include "main.hpp"
 
-# include <ncurses.h>
-# include <iostream>
+class					Player
+{
+	public:
+		Player(void);
+		Player(int const var);
+		Player(Player const &src);
+		~Player(void);
 
-# include "Game.hpp"
-# include "Player.hpp"
+		// Player &	operator = (const Player &rhs);
 
-#endif
+	// 	int		getVar(void) const;
+	//	void		setVar(int var);
+
+		int			y;
+		int			x;
+
+};
