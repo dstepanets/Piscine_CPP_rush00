@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef Game_HPP
-# define Game_HPP
+#ifndef GAME_HPP
+# define GAME_HPP
 
 # include "main.hpp"
 
@@ -21,7 +21,6 @@
 # define WINW 100
 # define MAPH WINH - 2
 # define MAPW WINW - 2
-
 
 class					Game
 {

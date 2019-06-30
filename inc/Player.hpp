@@ -12,20 +12,25 @@
 
 # include "main.hpp"
 
+#ifndef PLAYER_HPP
+# define PALYER_HPP
+
 class					Player
 {
 	public:
-		Player(void);
-		Player(int const var);
-		Player(Player const &src);
-		~Player(void);
+		// Player(void);
+		// Player(int const var);
+		// Player(Player const &src);
+		// ~Player(void);
 
-		// Player &	operator = (const Player &rhs);
+	// Player &	operator = (const Player &rhs);
 
 	// 	int		getVar(void) const;
-	//	void		setVar(int var);
+	//	void	setVar(int var);
 
 		int			y;
 		int			x;
 
 };
+
+#endif
