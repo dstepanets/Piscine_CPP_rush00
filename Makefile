@@ -19,10 +19,10 @@ INC_DIR		= ./inc/
 OBJ_DIR		= ./obj/
 
 SRC			=	main.cpp \
-				game.cpp
+				Game.cpp
 
 HPP			=	main.hpp \
-				game.hpp
+				Game.hpp
 
 HEADS		= $(addprefix $(INC_DIR), $(HPP))
 OBJ 		= $(addprefix $(OBJ_DIR), $(SRC:.cpp=.o))

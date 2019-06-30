@@ -16,6 +16,6 @@
 # include <ncurses.h>
 # include <iostream>
 
-# include "game.hpp"
+# include "Game.hpp"
 
 #endif

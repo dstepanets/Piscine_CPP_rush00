@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Game.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dstepane <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/30 10:53:06 by dstepane          #+#    #+#             */
+/*   Updated: 2019/06/30 10:53:08 by dstepane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 
 #include "../inc/main.hpp"
 
 /*==============================CONSTRUCTORS=================================*/
 
-Game::Game(void) : _maph(30), _mapw(100)
+Game::Game(void) : _maph(MAPH), _mapw(MAPW)
 {
 	initscr();			// Initialize the window
 	cbreak();			// Line buffering disabled, Pass on everty thing to me
@@ -63,6 +75,13 @@ int		Game::getMapw(void) const { return (this->_mapw) ;}
 // }
 
 /*===========================FUNCTIONS=======================================*/
+
+void		Game::init_map(void)
+{
+	for (int y = 0; y < MAPH; y++)
+		bzero(map[y], MAPW);
+	map[MAPH - 1][(MAPW - 1) / 2] = 'S';
+}
 
 void		Game::init_colors(void)
 {

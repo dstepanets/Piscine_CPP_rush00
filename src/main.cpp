@@ -21,8 +21,8 @@ void		ball(Game *g)
 	static	int next_x = 0;
 	static int direction = 1;
 
-	mvprintw(y - 3, x, " @@ ");
-	mvprintw(y - 2, x, " || ");
+	mvprintw(y - 2, x, " @@ ");
+	// mvprintw(y - 2, x, " || ");
 	mvprintw(y - 1, x, " || ");
 	mvprintw(y, x, "O||O");
 
@@ -39,9 +39,11 @@ void		ball(Game *g)
 
 int			main(void)
 {
-	Game *g = new Game(40, 100);
+	Game *g = new Game(WINH, WINW);
 
 	g->init_colors();
+	g->init_map();
+//	bzero(g->map, MAPH * MAPW);
 
 	unsigned int		count = 0;
 	while (1) 
