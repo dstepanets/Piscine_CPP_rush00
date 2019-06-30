@@ -30,6 +30,7 @@ class					Player
 
 		int			y;
 		int			x;
+		char		missiles[MAPH][MAPW];
 
 };
 

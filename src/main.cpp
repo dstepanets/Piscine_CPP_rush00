@@ -11,75 +11,112 @@
 /* ************************************************************************** */
 
 #include "../inc/main.hpp"
+# include "Game.hpp"
 
-#include <unistd.h>		//
-
-void		ball()
+void		draw_palyer(Game *g, Player *p)
 {
-	static int x = 2, y = 38;
-	static	int next_x = 0;
-	static int direction = 1;
+	// wattron(g->win, COLOR_PAIR(3));
+	// mvwaddch(g->win, p->y, p->x,'M');
+	// mvwaddch(g->win, p->y, X(p->x - 1),'<');
+	// mvwaddch(g->win, p->y, X(p->x + 1),'>');
+	// wattroff(g->win, COLOR_PAIR(3));
 
-	mvprintw(y - 2, x, " @@ ");
-	mvprintw(y - 1, x, " || ");
-	mvprintw(y, x, "O||O");
-
-	usleep(30000);
-
-	next_x = x + direction;
-	if (next_x >= (MAPW - 2) || next_x < 1) 
-		direction*= -1;
-	else 
-		x += direction;
-
+	//	mvprintw(p->y, p->x, "<H>");
+		attron(COLOR_PAIR(7));
+		attron(A_BOLD);
+		mvprintw(p->y - 2, p->x, " @@ ");
+		mvprintw(p->y - 1, p->x, " || ");
+		mvprintw(p->y, p->x, "O||O");
+		attroff(COLOR_PAIR(7));
+		attroff(A_NORMAL);
+	(void)g;
+	usleep(10000);
 }
 
-void		draw_palyer( Player *p)
+void		starField(Game *g)
 {
-	mvprintw(p->y, p->x, "<H>");
+	for(int y = (MAPH); y > 0; y--)
+	{
+		for (int x = 0; x < (MAPW); x++)
+		{
+			if (g->map[y][x] == '.')
+			{
+				wattron(g->win, A_DIM);
+				g->map[y][x] = ' ';
+				// mvprintw(y, x, " ");
+				mvwaddch(g->win, y, x, ' ');
+				if ((y + 1) < (MAPH))
+				{
+					g->map[y + 1][x] = '.';
+					// mvprintw(y + 1, x, ".");
+					mvwaddch(g->win, y + 1, x, '.');
+				}
+				wattroff(g->win, A_DIM);
+			}
+		}
+	}
+	for(int i = 0; i < 2; i++)
+		g->map[1][(rand() % (MAPW - 1) + 1)] = '.';
 }
 
-
-void		exit_game(Game *g, Player *p)
-{
-	delete p;
-	delete g;
-}
 
 int			main(void)
 {
 	Game *g = new Game(WINH, WINW);
+		g->p = new Player;
+		g->p->y = (MAPH);
+		g->p->x = (MAPW) / 2;
 
-	g->init_colors();
 	g->init_map();
+	g->init_colors();
 
-	unsigned int		count = 0;
-	while (1) 
+	nodelay(stdscr, TRUE);
+	srand(time(0));
+
+	int	key;
+	size_t	 tick = 0;
+	while (!g->gameOver) 
 	{
-		count++;
+//		werase(g->win);
 		wattron(g->win, COLOR_PAIR(1));
 		box(g->win, 0, 0);
 		wattroff(g->win, COLOR_PAIR(1));
 
-		// g->redrawMap();
-		g->p = new Player;
-		g->p->y = MAPH;
-		g->p->x = (MAPW / 2);
-		draw_palyer(g->p);
-//		if (count >= 13550 && count % 13550 == 0)
-//			ball();
-//		wprintw(g->win, "<O>");
-			nodelay(stdscr, TRUE);
 			keypad(stdscr, 1);
-			int 	key = getch();
-			g->key_events(key);
-			if (key == ESC)
-				exit_game(g, g->p);
+			if ((key = getch()) != ERR)
+				g->key_events(key);
+	
+			if (tick % 7 == 0)
+				starField(g);
+			if (tick % 5 == 0)
+				g->moveBullets();
+			if (tick % 30 == 0)
+				g->moveEnemies();
+			g->detectCollision();
 
+
+
+		draw_palyer(g, g->p);
 		wrefresh(g->win);
+//		refresh();
+
+		tick++;
+
+
 	}
-	return (0);
+	werase(g->win);
+	erase();
+	mvprintw((WINH) / 2, (WINW) / 2, "GAME OVER");
+	wrefresh(g->win);
+	refresh();
+	sleep(5);
+
+	g->exit_game();
 }
+
+
+
+
 
 // mvprintw(windod, y, x ) - for put your info in loop 
 /*

@@ -15,9 +15,18 @@
 
 # include <ncurses.h>
 # include <iostream>
+# include <unistd.h>
+# include <cmath>
 
-# include "Player.hpp"
-# include "Game.hpp"
+# define ESC 27
+
+# define WINH 40
+# define WINW 100
+# define MAPH WINH - 2
+# define MAPW WINW - 2
+
+# define Y(y) ((y < 1) ? 1 : (y > MAPH) ? MAPH : y)
+# define X(x) ((x < 1) ? 1 : (x > MAPW) ? MAPW : x)
 
 
 #endif
